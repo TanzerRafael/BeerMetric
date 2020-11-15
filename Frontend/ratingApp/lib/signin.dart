@@ -21,7 +21,6 @@ class _SignInState extends State<SignIn> {
   final TextEditingController _passwordController = TextEditingController();
   bool _success;
   String _userEmail;
-  static String userl;
   @override
   Widget build(BuildContext context) {
     return Scaffold(

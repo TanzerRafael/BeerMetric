@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
+import 'package:ratingApp/AddItem.dart';
 import 'register.dart';
 import 'signin.dart';
 
@@ -109,6 +110,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 itemCount: items.length,
                 itemBuilder: (context, index) {
                   return ListTile(
+                    onTap: () async {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => AddItem()),
+                      );
+                    },
                     title: Text('${items[index]}'),
                   );
                 },
