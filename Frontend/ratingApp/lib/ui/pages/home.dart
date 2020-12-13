@@ -79,29 +79,46 @@ class Home extends StatelessWidget {
         onTap: (){
         locator<NavigationService>().navigateTo(routes.RatingRoute, args: result);
       },
-      child: Container(
-        height: 100,
-        color: Colors.white,
-        child: Row(
-          children: <Widget>[
-          Image.network(
-          'https://image.tmdb.org/t/p/w185${result.posterPath}',
-            height: 150,
-            fit: BoxFit.contain,
-          ),
-          Center(
-            child: Text(
-            result.title,
-            style: TextStyle(
-            color: Colors.black,
-            fontSize: 18,
-            fontWeight: FontWeight.bold
-              ),
-            ),
-          ),
-       ]
+      child: Material(
+        color: ThemeData.dark().dividerColor,
+        child: Container(
+            margin: EdgeInsets.symmetric(vertical: 1.0),
+            height: 100,
+            color: ThemeData.dark().canvasColor,
+            child: Row(
+                children: <Widget>[
+                  Image.network(
+                    'https://image.tmdb.org/t/p/w185${result.posterPath}',
+                    height: 150,
+                    fit: BoxFit.contain,
+                  ),
+                  Expanded(
+                    child:
+                    Text(
+                      '  ${result.title}',
+                      overflow: TextOverflow.fade,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(left: 4.0, right: 10.0),
+                    child: Text(
+                      "5.6",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  )
+                ]
+            )
+        ),
       )
-    )
     );
   }
 

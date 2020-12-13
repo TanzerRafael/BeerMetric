@@ -34,7 +34,7 @@ class RatingPage extends StatelessWidget{
               ),
             ),
             Container(
-              child: Text(entry.title),
+              child: Text(entry.title, style: TextStyle(fontWeight: FontWeight.bold),),
               margin: EdgeInsets.fromLTRB(0, 5, 0, 30),
             ),
             Container(
@@ -49,17 +49,17 @@ class RatingPage extends StatelessWidget{
                   onPressed: (){
                     locator<NavigationService>().goBack();
                   },
-                  color: Theme.of(context).canvasColor,
+                  color: Theme.of(context).accentColor,
                   label: Text("Exit"),
                 ),
-                FlatButton.icon(
+                RaisedButton.icon(
                   icon: Icon(Icons.check, color: Colors.green,),
                   label: Text("Ok"),
                   onPressed: (){
                     //moviesBloc.updateRating(rating);
                     locator<NavigationService>().goBack();
                   },
-                  color: Theme.of(context).hintColor,
+                  color: Theme.of(context).accentColor,
                 )
               ],
             )

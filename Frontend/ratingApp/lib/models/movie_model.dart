@@ -7,7 +7,7 @@ class MovieModel{
   List<Result> _results = [];
 
   MovieModel.fromJson(Map<String, dynamic> parsedJson){
-    print(parsedJson['results'].length);
+    print('MovieModel ${parsedJson['results'].length}');
     _page = parsedJson['page'];
     _total_results = parsedJson['total_results'];
     _total_pages = parsedJson['total_pages'];

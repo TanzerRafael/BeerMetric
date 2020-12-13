@@ -6,6 +6,21 @@ import 'package:ratingApp/navigation_service.dart';
 import 'package:ratingApp/route_paths.dart' as routes;
 
 class MovieSearch extends SearchDelegate<Result>{
+
+  @override
+  ThemeData appBarTheme(BuildContext context) {
+    assert(context != null);
+    final ThemeData theme = Theme.of(context);
+    assert(theme != null);
+    return theme.copyWith(
+      primaryColor: theme.bottomAppBarColor,
+      primaryIconTheme: theme.primaryIconTheme.copyWith(color: Colors.grey),
+      primaryColorBrightness: Brightness.light,
+      primaryTextTheme: theme.textTheme,
+    );
+  }
+
+
   @override
   List<Widget> buildActions(BuildContext context) {
     return [
@@ -37,45 +52,55 @@ class MovieSearch extends SearchDelegate<Result>{
       stream: moviesBloc.filterMovies,
       builder: (context, AsyncSnapshot<MovieModel> snapshot){
         if(!snapshot.hasData) {
-          return Column(
-            children: <Widget>[
-              Center(
-                child: CircularProgressIndicator(),
-              )
-            ],
+          return Container(
+            color: Theme.of(context).canvasColor,
+            child: Column(
+              children: <Widget>[
+                Center(
+                  child: CircularProgressIndicator(),
+                )
+              ],
+            ),
           );
         } else if (snapshot.data.results.length == 0){
-          return Column(
-            children: <Widget>[
-              Container(
-                margin: EdgeInsets.fromLTRB(0, 35, 0, 20),
-                  child: Text(
-                    "Nothing Found",
-                    style: TextStyle(
-                      fontSize: 20,
+          return Container(
+            color: Theme.of(context).canvasColor,
+            child: Column(
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.fromLTRB(0, 35, 0, 20),
+                    child: Text(
+                      "Nothing Found",
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Theme.of(context).accentColor
+                      ),
                     ),
-                  ),
-              ),
-              Center(
-                child: FlatButton(
-                  child: Text(
-                      "+ Add Entry",
-                    style: TextStyle(
-                      fontSize: 20.0,
-                    ),
-                  ),
-                  onPressed: () {
-                    locator<NavigationService>().navigateTo(routes.AddItemRoute);
-                  },
-                  padding: EdgeInsets.all(12),
-                  color: Theme.of(context).accentColor,
                 ),
-              )
-            ],
+                Center(
+                  child: FlatButton(
+                    child: Text(
+                        "+ Add Entry",
+                      style: TextStyle(
+                        fontSize: 20.0,
+                      ),
+                    ),
+                    onPressed: () {
+                      locator<NavigationService>().navigateTo(routes.AddItemRoute);
+                    },
+                    padding: EdgeInsets.all(12),
+                    color: Theme.of(context).accentColor,
+                  ),
+                )
+              ],
+            ),
           );
         }
         else{
-          return _buildList(snapshot);
+          return Container(
+            color: Theme.of(context).canvasColor,
+            child: _buildList(snapshot),
+          );
         }
       },
     );
