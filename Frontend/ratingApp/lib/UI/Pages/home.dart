@@ -15,7 +15,7 @@ class Home extends StatelessWidget {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
-    //moviesBloc.fetchAllMovies();
+    moviesBloc.fetchAllMovies();
     //Text buttonText = Text(_auth.currentUser == null ? 'Sign in' : 'Sign out');
     return CustomScrollView(
       slivers: <Widget>[
