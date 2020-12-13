@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:cloud_functions/cloud_functions.dart';
@@ -128,19 +129,25 @@ class _AddItemState extends State<AddItem> {
 
   void _add() async {
     // add Item Function
-    HttpsCallable callable = FirebaseFunctions.instance.httpsCallable('getAlreadyRatedEntries');
-    /*final results = await callable.call(<String,dynamic>{
-      /*'image': _image.toString(),
-      'name': _nameController.value,
+    final bytes = _image.readAsBytesSync();
+    String img64 = base64Encode(bytes);
+    print('NEW ENTRY');
+    print(img64);
+    print(_nameController.text);
+    print(_overallRating);
+    print(_auth.currentUser.uid);
+    HttpsCallable callable = FirebaseFunctions.instance.httpsCallable('createNewEntry');
+    callable.call(<String,dynamic>{
+      'image': img64,
+      'name': _nameController.text,
       'overAllRating': _overallRating,
-      'userIdRate': [_auth.currentUser.uid]*/
-      'image': "adhadhadsadhbasd",
-      'name': "testtest",
-      'overAllRating': 5.0,
-      'userIdRate': ['asdasdasd']
-    });*/
-    final result = await callable();
-    locator<NavigationService>().navigateTo(routes.RegisterRoute);
+      'userIdRate': [_auth.currentUser.uid]
+      /*'image': 'TestTest',
+      'name': 'Test1234567890',
+      'overAllRating': 4,
+      'userIdRate': ['user1']*/
+    });
+    locator<NavigationService>().navigateTo(routes.HomeRoute);
   }
 
   @override
