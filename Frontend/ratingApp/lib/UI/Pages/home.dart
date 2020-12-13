@@ -62,7 +62,7 @@ class Home extends StatelessWidget {
             )
           ],
         ),
-        StreamBuilder(
+        /*StreamBuilder(
           stream: moviesBloc.allMovies,
           builder: (context, AsyncSnapshot<MovieModel> snapshot){
               if(snapshot.hasData) {
@@ -87,12 +87,12 @@ class Home extends StatelessWidget {
                 );
               }
             },
-        )
+        )*/
       ],
     );
   }
 
-  Widget _buildList(AsyncSnapshot<MovieModel> snapshot) {
+  /*Widget _buildList(AsyncSnapshot<MovieModel> snapshot) {
     return SliverList(
       delegate: SliverChildBuilderDelegate(
           (BuildContext context, int index){
@@ -132,7 +132,7 @@ class Home extends StatelessWidget {
       )
     )
     );
-  }
+  }*/
 
   /*Widget _buildList(AsyncSnapshot<MovieModel> snapshot) {
     return SliverList.builder(
