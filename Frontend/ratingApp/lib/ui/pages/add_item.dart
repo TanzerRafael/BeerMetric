@@ -1,8 +1,15 @@
+import 'dart:convert';
 import 'dart:io';
 
+import 'package:cloud_functions/cloud_functions.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:image_picker/image_picker.dart';
+
+import '../../locator.dart';
+import '../../navigation_service.dart';
+import '../../route_paths.dart' as routes;
 
 //2
 class AddItem extends StatefulWidget {
@@ -15,7 +22,9 @@ class AddItem extends StatefulWidget {
 class _AddItemState extends State<AddItem> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
-  double overallRating = 0;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  double _overallRating = 0;
   bool _success;
   File _image;
 
@@ -114,14 +123,31 @@ class _AddItemState extends State<AddItem> {
           color: Colors.orangeAccent,
         ),
         onRatingUpdate: (rating){
-          this.overallRating = rating;
+          this._overallRating = rating;
         }
     );
   }
 
   void _add() async {
-    // add Item Function
-    Navigator.pop(context);
+    final bytes = _image.readAsBytesSync();
+    String img64 = base64Encode(bytes);
+    print('NEW ENTRY');
+    print(img64);
+    print(_nameController.text);
+    print(_overallRating);
+    print(_auth.currentUser.uid);
+    HttpsCallable callable = FirebaseFunctions.instance.httpsCallable('createNewEntry');
+    callable.call(<String,dynamic>{
+      'image': img64,
+      'name': _nameController.text,
+      'overAllRating': _overallRating,
+      'userIdRate': [_auth.currentUser.uid]
+      /*'image': 'TestTest',
+      'name': 'Test1234567890',
+      'overAllRating': 4,
+      'userIdRate': ['user1']*/
+    });
+    locator<NavigationService>().goBack();
   }
 
   @override

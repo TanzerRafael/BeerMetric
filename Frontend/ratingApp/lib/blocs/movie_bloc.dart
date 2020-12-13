@@ -9,7 +9,6 @@ class MoviesBloc{
 
   Observable<MovieModel> get allMovies => _moviesFetcher.stream;
 
-
   Observable<MovieModel> get filterMovies => _moviesFetcherFilter.stream;
 
 
@@ -24,10 +23,6 @@ class MoviesBloc{
     _moviesFetcherFilter.sink.add(mm);
   }
 
-  updateRating(rating) async{
-    MovieModel mm = await _repo.updateRatingForMovie();
-    //sink
-  }
 
   dispose(){
     _moviesFetcher.close();

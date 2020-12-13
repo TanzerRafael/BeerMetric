@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:ratingApp/blocs/entry_bloc.dart';
 import 'package:ratingApp/blocs/movie_bloc.dart';
 import 'package:ratingApp/locator.dart';
+import 'package:ratingApp/models/entry_model.dart';
 import 'package:ratingApp/models/movie_model.dart';
 import 'package:ratingApp/navigation_service.dart';
 import 'package:ratingApp/route_paths.dart' as routes;
@@ -46,11 +50,11 @@ class MovieSearch extends SearchDelegate<Result>{
   @override
   Widget buildResults(BuildContext context) {
 
-    moviesBloc.fetchFilteredMovies(query);
+    entryBloc.fetchStartsWith(query);
 
     return StreamBuilder(
-      stream: moviesBloc.filterMovies,
-      builder: (context, AsyncSnapshot<MovieModel> snapshot){
+      stream: entryBloc.startsWith,
+      builder: (context, AsyncSnapshot<EntryModel> snapshot){
         if(!snapshot.hasData) {
           return Container(
             color: Theme.of(context).canvasColor,
@@ -111,7 +115,7 @@ class MovieSearch extends SearchDelegate<Result>{
     return Container();
   }
 
-  Widget _buildList(AsyncSnapshot<MovieModel> snapshot) {
+  Widget _buildList(AsyncSnapshot<EntryModel> snapshot) {
     return ListView.separated(
       padding: const EdgeInsets.all(8),
       itemCount: snapshot.data.results.length,
@@ -120,7 +124,7 @@ class MovieSearch extends SearchDelegate<Result>{
     );
   }
 
-  Widget _buildListItem(Result result) {
+  Widget _buildListItem(Entry result) {
     return InkWell(
       onTap: (){
         locator<NavigationService>().navigateTo(routes.RatingRoute, args: result);
@@ -130,13 +134,13 @@ class MovieSearch extends SearchDelegate<Result>{
           child: Center(
             child: Row(
               children: <Widget>[
-                Image.network(
-                    'https://image.tmdb.org/t/p/w185${result.posterPath}',
+                Image.memory(
+                    base64.decode(result.image),
                   height: 150,
                   fit: BoxFit.contain,
                 ),
                 Text(
-                  result.title,
+                  result.name,
                   style: TextStyle(
                     fontSize: 20,
                   ),
