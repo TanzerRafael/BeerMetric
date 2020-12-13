@@ -3,14 +3,14 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
-import 'package:ratingApp/AddItem.dart';
+import 'UI/Pages/add_item.dart';
 import 'register.dart';
 import 'signin.dart';
 
 //2
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
-void main() async {
+void main2() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MyApp());
