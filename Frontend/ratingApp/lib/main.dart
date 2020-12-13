@@ -154,9 +154,10 @@ import 'package:ratingApp/navigation_service.dart';
 import 'package:ratingApp/route_paths.dart' as routes;
 import 'package:ratingApp/router.dart' as router;
 
-void main(){
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
   setupLocator();
-  //await Firebase.initializeApp();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 

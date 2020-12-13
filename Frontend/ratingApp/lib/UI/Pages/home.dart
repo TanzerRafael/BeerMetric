@@ -12,9 +12,11 @@ import 'package:ratingApp/ui/pages/signin.dart';
 class Home extends StatelessWidget {
   //Home({Key key, this.title}) : super(key: key);
   //final String title;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
-    moviesBloc.fetchAllMovies();
+    //moviesBloc.fetchAllMovies();
+    //Text buttonText = Text(_auth.currentUser == null ? 'Sign in' : 'Sign out');
     return CustomScrollView(
       slivers: <Widget>[
         SliverAppBar(
@@ -23,8 +25,8 @@ class Home extends StatelessWidget {
           pinned: true,
           title: Text("BeerMetric"),
           actions: <Widget>[
-            /*FlatButton(
-            child: buttonText,
+            FlatButton(
+            child: Text('Auth'),
               textColor: Theme.of(context).buttonColor,
               onPressed: () async {
                 /*setState(() {
@@ -50,7 +52,7 @@ class Home extends StatelessWidget {
                   content: Text(uid + ' has successfully signed out.'),
                 ));
               },
-            ),*/
+            ),
             IconButton(
               icon: Icon(Icons.search),
               onPressed: (){
@@ -62,7 +64,7 @@ class Home extends StatelessWidget {
             )
           ],
         ),
-        /*StreamBuilder(
+        StreamBuilder(
           stream: moviesBloc.allMovies,
           builder: (context, AsyncSnapshot<MovieModel> snapshot){
               if(snapshot.hasData) {
@@ -87,12 +89,12 @@ class Home extends StatelessWidget {
                 );
               }
             },
-        )*/
+        )
       ],
     );
   }
 
-  /*Widget _buildList(AsyncSnapshot<MovieModel> snapshot) {
+  Widget _buildList(AsyncSnapshot<MovieModel> snapshot) {
     return SliverList(
       delegate: SliverChildBuilderDelegate(
           (BuildContext context, int index){
@@ -132,7 +134,7 @@ class Home extends StatelessWidget {
       )
     )
     );
-  }*/
+  }
 
   /*Widget _buildList(AsyncSnapshot<MovieModel> snapshot) {
     return SliverList.builder(

@@ -5,6 +5,8 @@ import 'package:ratingApp/models/movie_model.dart';
 import 'package:ratingApp/navigation_service.dart';
 import 'package:ratingApp/route_paths.dart' as routes;
 
+import 'add_item.dart';
+
 class MovieSearch extends SearchDelegate<Result>{
   @override
   List<Widget> buildActions(BuildContext context) {
