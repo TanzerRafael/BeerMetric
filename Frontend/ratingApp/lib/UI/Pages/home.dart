@@ -12,11 +12,9 @@ import 'package:ratingApp/ui/pages/signin.dart';
 class Home extends StatelessWidget {
   //Home({Key key, this.title}) : super(key: key);
   //final String title;
-  final FirebaseAuth _auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     moviesBloc.fetchAllMovies();
-    Text buttonText = Text(_auth.currentUser == null ? 'Sign in' : 'Sign out');
     return CustomScrollView(
       slivers: <Widget>[
         SliverAppBar(
@@ -25,7 +23,7 @@ class Home extends StatelessWidget {
           pinned: true,
           title: Text("BeerMetric"),
           actions: <Widget>[
-            FlatButton(
+            /*FlatButton(
             child: buttonText,
               textColor: Theme.of(context).buttonColor,
               onPressed: () async {
@@ -52,7 +50,7 @@ class Home extends StatelessWidget {
                   content: Text(uid + ' has successfully signed out.'),
                 ));
               },
-            ),
+            ),*/
             IconButton(
               icon: Icon(Icons.search),
               onPressed: (){

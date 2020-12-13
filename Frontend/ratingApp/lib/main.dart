@@ -1,5 +1,4 @@
-//1
-import 'package:firebase_core/firebase_core.dart';
+/*import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
@@ -7,7 +6,6 @@ import 'UI/Pages/add_item.dart';
 import 'register.dart';
 import 'signin.dart';
 
-//2
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
 void main() async {
@@ -16,7 +14,6 @@ void main() async {
   runApp(MyApp());
 }
 
-//3
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -54,7 +51,6 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
         actions: <Widget>[
           Builder(builder: (BuildContext context) {
-//5
             return FlatButton(
               child: buttonText,
               textColor: Theme.of(context).buttonColor,
@@ -149,5 +145,34 @@ class _MyHomePageState extends State<MyHomePage> {
       });
     }
 
+  }
+}*/
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
+import 'package:ratingApp/locator.dart';
+import 'package:ratingApp/navigation_service.dart';
+import 'package:ratingApp/route_paths.dart' as routes;
+import 'package:ratingApp/router.dart' as router;
+
+void main(){
+  setupLocator();
+  //await Firebase.initializeApp();
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.green,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      onGenerateRoute: router.generateRouting,
+      initialRoute: routes.HomeRoute,
+      navigatorKey: locator<NavigationService>().navigatorKey,
+    );
   }
 }

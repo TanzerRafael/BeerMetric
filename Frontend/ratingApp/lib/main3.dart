@@ -1,11 +1,13 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:ratingApp/locator.dart';
 import 'package:ratingApp/navigation_service.dart';
 import 'package:ratingApp/route_paths.dart' as routes;
 import 'package:ratingApp/router.dart' as router;
 
-void main() {
+void main() async{
   setupLocator();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
