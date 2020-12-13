@@ -20,7 +20,7 @@ class Home extends StatelessWidget {
           floating: true,
           snap: true,
           pinned: true,
-          title: Text("this.title"),
+          title: Text("BeerMetric"),
           actions: <Widget>[
             IconButton(
               icon: Icon(Icons.search),
