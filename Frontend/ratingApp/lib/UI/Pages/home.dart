@@ -34,8 +34,6 @@ class Home extends StatelessWidget {
                   locator<NavigationService>().navigateTo(routes.SignInRoute);
                   return;
                 }
-                await _auth.signOut();
-                final String uid = user.uid;
               },
             ),
             IconButton(

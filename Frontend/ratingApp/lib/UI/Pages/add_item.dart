@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:cloud_functions/cloud_functions.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:image_picker/image_picker.dart';
@@ -9,7 +11,7 @@ import '../../navigation_service.dart';
 import 'package:ratingApp/route_paths.dart' as routes;
 
 class AddItem extends StatefulWidget {
-  final String title = 'Sign In';
+  final String title = 'Add Beer';
 
   @override
   State<StatefulWidget> createState() => _AddItemState();
@@ -18,7 +20,9 @@ class AddItem extends StatefulWidget {
 class _AddItemState extends State<AddItem> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
-  double overallRating = 0;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  double _overallRating = 0;
   bool _success;
   File _image;
 
@@ -117,13 +121,25 @@ class _AddItemState extends State<AddItem> {
           color: Colors.orangeAccent,
         ),
         onRatingUpdate: (rating){
-          this.overallRating = rating;
+          this._overallRating = rating;
         }
     );
   }
 
   void _add() async {
     // add Item Function
+    HttpsCallable callable = FirebaseFunctions.instance.httpsCallable('getAlreadyRatedEntries');
+    /*final results = await callable.call(<String,dynamic>{
+      /*'image': _image.toString(),
+      'name': _nameController.value,
+      'overAllRating': _overallRating,
+      'userIdRate': [_auth.currentUser.uid]*/
+      'image': "adhadhadsadhbasd",
+      'name': "testtest",
+      'overAllRating': 5.0,
+      'userIdRate': ['asdasdasd']
+    });*/
+    final result = await callable();
     locator<NavigationService>().navigateTo(routes.RegisterRoute);
   }
 

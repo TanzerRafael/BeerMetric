@@ -147,6 +147,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   }
 }*/
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:ratingApp/locator.dart';
@@ -162,6 +163,7 @@ void main() async{
 }
 
 class MyApp extends StatelessWidget {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -172,7 +174,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       onGenerateRoute: router.generateRouting,
-      initialRoute: routes.SignInRoute,
+      initialRoute: _auth.currentUser == null ? routes.SignInRoute : routes.HomeRoute,
       navigatorKey: locator<NavigationService>().navigatorKey,
     );
   }
