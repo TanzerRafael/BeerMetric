@@ -25,32 +25,17 @@ class Home extends StatelessWidget {
           pinned: true,
           title: Text("BeerMetric"),
           actions: <Widget>[
-            FlatButton(
-            child: Text('Auth'),
-              textColor: Theme.of(context).buttonColor,
+            IconButton(
+              icon: Icon(Icons.login),
               onPressed: () async {
-                /*setState(() {
-                  _auth.currentUser;
-                });*/
+                await _auth.signOut();
                 final User user = _auth.currentUser;
                 if (user == null) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => SignIn()),
-                  );
-                  /*setState(() {
-                    buttonText = Text(_auth.currentUser == null ? 'Sign in' : 'Sign out');
-                  });*/
+                  locator<NavigationService>().navigateTo(routes.SignInRoute);
                   return;
                 }
                 await _auth.signOut();
                 final String uid = user.uid;
-                /*setState(() {
-                  buttonText = Text(_auth.currentUser == null ? 'Sign in' : 'Sign out');
-                });*/
-                Scaffold.of(context).showSnackBar(SnackBar(
-                  content: Text(uid + ' has successfully signed out.'),
-                ));
               },
             ),
             IconButton(

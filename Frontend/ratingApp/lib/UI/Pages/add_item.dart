@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:image_picker/image_picker.dart';
 
-//2
+import '../../locator.dart';
+import '../../navigation_service.dart';
+import 'package:ratingApp/route_paths.dart' as routes;
+
 class AddItem extends StatefulWidget {
   final String title = 'Sign In';
 
@@ -121,7 +124,7 @@ class _AddItemState extends State<AddItem> {
 
   void _add() async {
     // add Item Function
-    Navigator.pop(context);
+    locator<NavigationService>().navigateTo(routes.RegisterRoute);
   }
 
   @override

@@ -172,7 +172,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       onGenerateRoute: router.generateRouting,
-      initialRoute: routes.HomeRoute,
+      initialRoute: routes.SignInRoute,
       navigatorKey: locator<NavigationService>().navigatorKey,
     );
   }

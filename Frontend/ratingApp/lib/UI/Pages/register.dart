@@ -2,7 +2,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
-import 'package:ratingApp/ui/pages/signin.dart';
+import 'package:ratingApp/route_paths.dart' as routes;
+
+import '../../locator.dart';
+import '../../navigation_service.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -90,7 +93,7 @@ class _RegisterState extends State<Register> {
                 onPressed: () async {
                   signInPage();
                 },
-                child: const Text('Register'),
+                child: const Text('Sign-in'),
               ),
             ),
             Container(
@@ -117,7 +120,7 @@ class _RegisterState extends State<Register> {
       setState(() {
         _success = true;
         _userEmail = user.email;
-        Navigator.pop(context);
+        locator<NavigationService>().navigateTo(routes.HomeRoute);
       });
     } else {
       setState(() {
@@ -133,10 +136,6 @@ class _RegisterState extends State<Register> {
   }
 
   void signInPage() {
-    Navigator.pop(context);
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => SignIn()),
-    );
+    locator<NavigationService>().navigateTo(routes.SignInRoute);
   }
 }
