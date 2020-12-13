@@ -10,7 +10,7 @@ import 'signin.dart';
 //2
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
-void main2() async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MyApp());
