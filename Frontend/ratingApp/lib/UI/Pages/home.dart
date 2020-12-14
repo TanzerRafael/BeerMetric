@@ -1,22 +1,26 @@
+import 'dart:convert';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:ratingApp/blocs/entry_bloc.dart';
 import 'package:ratingApp/blocs/movie_bloc.dart';
 import 'package:ratingApp/locator.dart';
+import 'package:ratingApp/models/entry_model.dart';
 import 'package:ratingApp/models/movie_model.dart';
 import 'package:ratingApp/navigation_service.dart';
 import 'package:ratingApp/ui/pages/movie_search.dart';
 import 'package:ratingApp/ui/pages/rating_page.dart';
 import 'package:ratingApp/route_paths.dart' as routes;
-import 'package:ratingApp/ui/pages/signin.dart';
 
 class Home extends StatelessWidget {
   //Home({Key key, this.title}) : super(key: key);
   //final String title;
   final FirebaseAuth _auth = FirebaseAuth.instance;
+
+
   @override
   Widget build(BuildContext context) {
-    moviesBloc.fetchAllMovies();
-    //Text buttonText = Text(_auth.currentUser == null ? 'Sign in' : 'Sign out');
+    entryBloc.fetchAlreadyRated(_auth.currentUser.uid);
     return CustomScrollView(
       slivers: <Widget>[
         SliverAppBar(
@@ -48,8 +52,8 @@ class Home extends StatelessWidget {
           ],
         ),
         StreamBuilder(
-          stream: moviesBloc.allMovies,
-          builder: (context, AsyncSnapshot<MovieModel> snapshot){
+          stream: entryBloc.alreadyRated,
+          builder: (context, AsyncSnapshot<EntryModel> snapshot){
               if(snapshot.hasData) {
                 return _buildList(snapshot);
               }
@@ -77,7 +81,7 @@ class Home extends StatelessWidget {
     );
   }
 
-  Widget _buildList(AsyncSnapshot<MovieModel> snapshot) {
+  Widget _buildList(AsyncSnapshot<EntryModel> snapshot) {
     return SliverList(
       delegate: SliverChildBuilderDelegate(
           (BuildContext context, int index){
@@ -88,34 +92,52 @@ class Home extends StatelessWidget {
     );
   }
 
-  Widget _buildListItem(Result result){
+  Widget _buildListItem(Entry result){
     return GestureDetector(
         onTap: (){
         locator<NavigationService>().navigateTo(routes.RatingRoute, args: result);
       },
-      child: Container(
-        height: 100,
-        color: Colors.white,
-        child: Row(
-          children: <Widget>[
-          Image.network(
-          'https://image.tmdb.org/t/p/w185${result.posterPath}',
-            height: 150,
-            fit: BoxFit.contain,
-          ),
-          Center(
-            child: Text(
-            result.title,
-            style: TextStyle(
-            color: Colors.black,
-            fontSize: 18,
-            fontWeight: FontWeight.bold
-              ),
-            ),
-          ),
-       ]
+      child: Material(
+        color: ThemeData.dark().dividerColor,
+        child: Container(
+            margin: EdgeInsets.symmetric(vertical: 1.0),
+            height: 100,
+            color: ThemeData.dark().canvasColor,
+            child: Row(
+                children: <Widget>[
+                  Image.memory(
+                    //Uri.parse(result.image).data.contentAsBytes(),
+                    base64.decode(result.image),
+                    height: 150,
+                    fit: BoxFit.contain,
+                  ),
+                  Expanded(
+                    child:
+                    Text(
+                      '  ${result.name}',
+                      overflow: TextOverflow.fade,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(left: 4.0, right: 10.0),
+                    child: Text(
+                      '${result.vote_average}',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  )
+                ]
+            )
+        ),
       )
-    )
     );
   }
 

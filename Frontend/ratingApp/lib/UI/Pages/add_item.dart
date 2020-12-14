@@ -9,10 +9,11 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../locator.dart';
 import '../../navigation_service.dart';
-import 'package:ratingApp/route_paths.dart' as routes;
+import '../../route_paths.dart' as routes;
 
+//2
 class AddItem extends StatefulWidget {
-  final String title = 'Add Beer';
+  final String title = 'Sign In';
 
   @override
   State<StatefulWidget> createState() => _AddItemState();
@@ -128,7 +129,6 @@ class _AddItemState extends State<AddItem> {
   }
 
   void _add() async {
-    // add Item Function
     final bytes = _image.readAsBytesSync();
     String img64 = base64Encode(bytes);
     print('NEW ENTRY');
@@ -147,7 +147,7 @@ class _AddItemState extends State<AddItem> {
       'overAllRating': 4,
       'userIdRate': ['user1']*/
     });
-    locator<NavigationService>().navigateTo(routes.HomeRoute);
+    locator<NavigationService>().goBack();
   }
 
   @override

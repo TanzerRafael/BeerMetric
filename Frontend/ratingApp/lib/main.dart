@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -9,6 +10,19 @@ import 'signin.dart';
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
 void main() async {
+=======
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
+import 'package:ratingApp/locator.dart';
+import 'package:ratingApp/navigation_service.dart';
+import 'package:ratingApp/route_paths.dart' as routes;
+import 'package:ratingApp/router.dart' as router;
+
+
+void main() async {
+  setupLocator();
+>>>>>>> mlTextOrigin
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MyApp());
@@ -18,6 +32,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+<<<<<<< HEAD
       title: 'Rating App',
       home: MyHomePage(title: 'Rating App'),
     );
@@ -168,13 +183,22 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+=======
+>>>>>>> mlTextOrigin
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.green,
         visualDensity: VisualDensity.adaptivePlatformDensity,
+<<<<<<< HEAD
       ),
       onGenerateRoute: router.generateRouting,
       initialRoute: _auth.currentUser == null ? routes.SignInRoute : routes.HomeRoute,
+=======
+        brightness: Brightness.dark
+      ),
+      onGenerateRoute: router.generateRouting,
+      initialRoute: routes.SignInRoute,
+>>>>>>> mlTextOrigin
       navigatorKey: locator<NavigationService>().navigatorKey,
     );
   }

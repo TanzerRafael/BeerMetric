@@ -9,6 +9,7 @@ import '../../navigation_service.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
+//2
 class Register extends StatefulWidget {
   final String title = 'Registration';
   @override

@@ -9,7 +9,10 @@ class MoviesBloc{
 
   Observable<MovieModel> get allMovies => _moviesFetcher.stream;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> mlTextOrigin
   Observable<MovieModel> get filterMovies => _moviesFetcherFilter.stream;
 
 
@@ -24,10 +27,13 @@ class MoviesBloc{
     _moviesFetcherFilter.sink.add(mm);
   }
 
+<<<<<<< HEAD
   updateRating(rating) async{
     MovieModel mm = await _repo.updateRatingForMovie();
     //sink
   }
+=======
+>>>>>>> mlTextOrigin
 
   dispose(){
     _moviesFetcher.close();

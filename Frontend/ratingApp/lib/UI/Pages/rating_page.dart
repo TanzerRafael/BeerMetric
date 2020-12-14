@@ -1,14 +1,17 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:ratingApp/blocs/movie_bloc.dart';
 import 'package:ratingApp/locator.dart';
+import 'package:ratingApp/models/entry_model.dart';
 import 'package:ratingApp/models/movie_model.dart';
 import 'package:ratingApp/navigation_service.dart';
 
 class RatingPage extends StatelessWidget{
   RatingPage({Key key, this.entry}) : super(key: key);
-  final Result entry;
+  final Entry entry;
   double rating; //Display current overall rating final and ctor init and take inputrating into bloc
 
   @override
@@ -29,12 +32,12 @@ class RatingPage extends StatelessWidget{
                 shape: BoxShape.circle,
                 image: DecorationImage(
                   fit: BoxFit.fill,
-                  image: NetworkImage('https://image.tmdb.org/t/p/w185${entry.posterPath}'),
+                  image: MemoryImage(base64.decode(entry.image)),
                 )
               ),
             ),
             Container(
-              child: Text(entry.title),
+              child: Text(entry.name, style: TextStyle(fontWeight: FontWeight.bold),),
               margin: EdgeInsets.fromLTRB(0, 5, 0, 30),
             ),
             Container(
@@ -49,17 +52,17 @@ class RatingPage extends StatelessWidget{
                   onPressed: (){
                     locator<NavigationService>().goBack();
                   },
-                  color: Theme.of(context).canvasColor,
+                  color: Theme.of(context).accentColor,
                   label: Text("Exit"),
                 ),
-                FlatButton.icon(
+                RaisedButton.icon(
                   icon: Icon(Icons.check, color: Colors.green,),
                   label: Text("Ok"),
                   onPressed: (){
                     //moviesBloc.updateRating(rating);
                     locator<NavigationService>().goBack();
                   },
-                  color: Theme.of(context).hintColor,
+                  color: Theme.of(context).accentColor,
                 )
               ],
             )
@@ -71,7 +74,7 @@ class RatingPage extends StatelessWidget{
   Widget _buildRatingBar(){
     return RatingBar.builder(
       glowColor: Colors.grey,
-        initialRating: 1,
+        initialRating: entry.vote_average,
         minRating: 1,
         direction: Axis.horizontal,
         allowHalfRating: true,

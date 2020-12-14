@@ -31,4 +31,9 @@ class MovieApiProvider{
        throw Exception('Failed to load');
      }
    }
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> mlTextOrigin
 }

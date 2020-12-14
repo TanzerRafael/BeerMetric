@@ -145,7 +145,11 @@ packages:
       name: flutter_rating_bar
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "3.2.0"
+=======
+    version: "3.2.0+1"
+>>>>>>> mlTextOrigin
   flutter_signin_button:
     dependency: "direct main"
     description:
@@ -169,7 +173,11 @@ packages:
       name: font_awesome_flutter
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "8.10.0"
+=======
+    version: "8.10.1"
+>>>>>>> mlTextOrigin
   get_it:
     dependency: "direct main"
     description:
@@ -218,7 +226,11 @@ packages:
       name: image_picker
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "0.6.7+14"
+=======
+    version: "0.6.7+15"
+>>>>>>> mlTextOrigin
   image_picker_platform_interface:
     dependency: transitive
     description:
