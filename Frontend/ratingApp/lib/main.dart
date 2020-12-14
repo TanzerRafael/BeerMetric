@@ -15,6 +15,8 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,7 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.dark
       ),
       onGenerateRoute: router.generateRouting,
-      initialRoute: routes.SignInRoute,
+      initialRoute: _auth.currentUser == null ? routes.SignInRoute : routes.HomeRoute,
       navigatorKey: locator<NavigationService>().navigatorKey,
     );
   }

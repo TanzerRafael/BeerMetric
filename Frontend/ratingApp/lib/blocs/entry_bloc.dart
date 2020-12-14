@@ -19,6 +19,7 @@ class EntryBloc{
   fetchStartsWith(filter) async{
     EntryModel model = await _repo.fetchStartsWith(filter);
     _entriesFetcher.sink.add(model);
+    print(model);
   }
 
   updateRating(entryid) async{
