@@ -30,6 +30,17 @@ class Home extends StatelessWidget {
           title: Text("BeerMetric"),
           actions: <Widget>[
             IconButton(
+              icon: Icon(Icons.login),
+              onPressed: () async {
+                await _auth.signOut();
+                final User user = _auth.currentUser;
+                if (user == null) {
+                  locator<NavigationService>().navigateTo(routes.SignInRoute);
+                  return;
+                }
+              },
+            ),
+            IconButton(
               icon: Icon(Icons.search),
               onPressed: (){
                 showSearch(

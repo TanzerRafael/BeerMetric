@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.dark
       ),
       onGenerateRoute: router.generateRouting,
-      initialRoute: routes.RegisterRoute,
+      initialRoute: routes.SignInRoute,
       navigatorKey: locator<NavigationService>().navigatorKey,
     );
   }
