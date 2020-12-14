@@ -18,4 +18,5 @@ class Repository{
 
   fetchAlreadyRated(userid) => entryProvider.getAlreadyRated(userid);
   fetchStartsWith(filter) => entryProvider.getStartsWith(filter);
+  updateEntry(rating, entryid) => entryProvider.updateRating(rating, entryid);
 }

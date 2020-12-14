@@ -21,13 +21,15 @@ class EntryBloc{
     _entriesFetcher.sink.add(model);
   }
 
-  updateRating() async{
+  updateRating(entryid) async{
+    _repo.updateEntry(this.rating, entryid);
   }
 
   void setRating(double val) => this.rating = val;
 
   dispose(){
     _entriesFetcher.close();
+    _entriesStartWithFetcher.close();
   }
 }
 final entryBloc = EntryBloc();//initialize and Pass as parameter
