@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:ratingApp/blocs/entry_bloc.dart';
 import 'package:ratingApp/blocs/movie_bloc.dart';
 import 'package:ratingApp/locator.dart';
 import 'package:ratingApp/models/entry_model.dart';
@@ -59,7 +60,7 @@ class RatingPage extends StatelessWidget{
                   icon: Icon(Icons.check, color: Colors.green,),
                   label: Text("Ok"),
                   onPressed: (){
-                    //moviesBloc.updateRating(rating);
+                    entryBloc.updateRating(entry.id);
                     locator<NavigationService>().goBack();
                   },
                   color: Theme.of(context).accentColor,
@@ -85,7 +86,7 @@ class RatingPage extends StatelessWidget{
           color: Colors.orangeAccent,
         ),
         onRatingUpdate: (rating){
-          this.rating = rating;
+          entryBloc.setRating((rating+entry.vote_average)/2);
         },
     );
   }
