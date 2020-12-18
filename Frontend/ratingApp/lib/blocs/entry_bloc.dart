@@ -18,7 +18,7 @@ class EntryBloc{
 
   fetchStartsWith(filter) async{
     EntryModel model = await _repo.fetchStartsWith(filter);
-    _entriesFetcher.sink.add(model);
+    _entriesStartWithFetcher.sink.add(model);
     print(model);
   }
 

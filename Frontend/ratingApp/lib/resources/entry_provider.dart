@@ -32,7 +32,7 @@ class EntryProvider{
       'Charset': 'utf-8',
       'Access-Control-Allow-Origin': '*'
     };
-    final res = await http.get('https://us-central1-ratingsvs.cloudfunctions.net/getStartsWith/$filter', headers: headers);
+    final res = await http.get('https://us-central1-ratingsvs.cloudfunctions.net/getEntriesStartsWith/$filter', headers: headers);
     print("EntryProvider:: startsWith--" + res.statusCode.toString());
     print("EntryProvider:: startsWith--" + res.body);
     String bod = res.body;
@@ -40,7 +40,7 @@ class EntryProvider{
     return EntryModel.fromJson(list);
   }
 
-  void updateRating(rating, entryid) async{
+  void updateRating(rating, entryid) async{//refresh homepage
     if(entryid == null){
       entryid = "1GYFohyPN602YHnemz8U";
     }

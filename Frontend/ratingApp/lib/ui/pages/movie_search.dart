@@ -55,7 +55,7 @@ class MovieSearch extends SearchDelegate<Result>{
     return StreamBuilder(
       stream: entryBloc.startsWith,
       builder: (context, AsyncSnapshot<EntryModel> snapshot){
-        /*if(!snapshot.hasData) {
+        if(!snapshot.hasData) {
           return Container(
             color: Theme.of(context).canvasColor,
             child: Column(
@@ -66,7 +66,7 @@ class MovieSearch extends SearchDelegate<Result>{
               ],
             ),
           );
-        }*/if (!snapshot.hasData || snapshot.data.results.length == 0){
+        }if (snapshot.data.results.length == 0){
           return Container(
             color: Theme.of(context).canvasColor,
             child: Column(
