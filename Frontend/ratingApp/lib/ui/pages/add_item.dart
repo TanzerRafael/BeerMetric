@@ -1,15 +1,22 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:camera/camera.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:ratingApp/blocs/mltext_bloc.dart';
+import 'package:ratingApp/resources/repos/repository.dart';
+import 'package:ratingApp/ui/pages/camera/camera_screen.dart';
+import 'package:ratingApp/ui/pages/choose_name.dart';
 
 import '../../locator.dart';
 import '../../navigation_service.dart';
 import '../../route_paths.dart' as routes;
+
+import '../../resources/mltext_provider.dart';
 
 //2
 class AddItem extends StatefulWidget {
@@ -157,13 +164,32 @@ class _AddItemState extends State<AddItem> {
   }
 
   _imgFromCamera() async {
-    File image = await ImagePicker.pickImage(
-        source: ImageSource.camera, imageQuality: 50
-    );
 
-    setState(() {
-      _image = image;
-    });
+    final cam = (await availableCameras()).first;
+
+    /*File image = await ImagePicker.pickImage(
+        source: ImageSource.camera, imageQuality: 50
+    );*/
+
+    final imgPath = await Navigator.push(context, MaterialPageRoute(builder: (context) => CameraScreen(cam: cam)));
+
+    if(imgPath != ""){
+      setState(() {
+        _image = File(imgPath);
+      });
+    }
+
+    await Navigator.push(context, MaterialPageRoute(builder: (c) => ChooseName(img: _image)));
+
+    List<String> words = mlTextBloc.getChosenWords();
+    String chosenWords = "";
+    for(var word in words){
+      chosenWords += word+" ";
+    }
+
+    _nameController.text = chosenWords;
+
+    print("MlText: ChosenWords $chosenWords");
   }
 
   _imgFromGallery() async {

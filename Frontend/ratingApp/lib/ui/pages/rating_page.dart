@@ -4,10 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:ratingApp/blocs/entry_bloc.dart';
-import 'package:ratingApp/blocs/movie_bloc.dart';
 import 'package:ratingApp/locator.dart';
 import 'package:ratingApp/models/entry_model.dart';
-import 'package:ratingApp/models/movie_model.dart';
 import 'package:ratingApp/navigation_service.dart';
 
 class RatingPage extends StatelessWidget{

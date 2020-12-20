@@ -4,24 +4,24 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:ratingApp/route_paths.dart' as routes;
 
-import '../../locator.dart';
-import '../../navigation_service.dart';
+import '../../../locator.dart';
+import '../../../navigation_service.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
 //2
-class Register extends StatefulWidget {
-  final String title = 'Registration';
+class SignIn extends StatefulWidget {
+  final String title = 'Sign In';
+
   @override
   State<StatefulWidget> createState() =>
-      _RegisterState();
+      _SignInState();
 }
-class _RegisterState extends State<Register> {
+
+class _SignInState extends State<SignIn> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _passwordController2 = TextEditingController();
-
   bool _success;
   String _userEmail;
   @override
@@ -54,23 +54,6 @@ class _RegisterState extends State<Register> {
                 if (value.isEmpty) {
                   return 'Please enter some text';
                 }
-                print(value);
-                print(_passwordController2.value);
-                if (value != _passwordController2.text){
-                  return 'Passwords are not equal';
-                }
-                return null;
-              },
-            ),
-            TextFormField(
-              controller: _passwordController2,
-              decoration: const InputDecoration(labelText:
-              'Confirm Password'),
-              obscureText: true,
-              validator: (String value) {
-                if (value.isEmpty) {
-                  return 'Please enter some text';
-                }
                 return null;
               },
             ),
@@ -80,10 +63,10 @@ class _RegisterState extends State<Register> {
               child: RaisedButton(
                 onPressed: () async {
                   if (_formKey.currentState.validate()) {
-                    _register();
+                    _signIn();
                   }
                 },
-                child: const Text('Register'),
+                child: const Text('Login'),
               ),
             ),
             Container(
@@ -91,9 +74,9 @@ class _RegisterState extends State<Register> {
               alignment: Alignment.center,
               child: RaisedButton(
                 onPressed: () async {
-                  signInPage();
+                  registerPage();
                 },
-                child: const Text('Sign-in'),
+                child: const Text('Register'),
               ),
             ),
             Container(
@@ -101,33 +84,43 @@ class _RegisterState extends State<Register> {
               child: Text(_success == null
                   ? ''
                   : (_success
-                  ? 'Successfully registered ' + _userEmail
-                  : 'Registration failed')),
+                  ? 'Successfully signed in ' + _userEmail
+                  : 'Sign in failed')),
             )
           ],
         ),
       ),
     );
   }
-  void _register() async {
-    final User user = (await
-    _auth.createUserWithEmailAndPassword(
-      email: _emailController.text,
-      password: _passwordController.text,
-    )
-    ).user;
-    if (user != null) {
-      setState(() {
-        _success = true;
-        _userEmail = user.email;
-        locator<NavigationService>().navigateTo(routes.HomeRoute);
-      });
-    } else {
+
+  void _signIn() async {
+    try {
+      final User user = (await
+      _auth.signInWithEmailAndPassword(
+        email: _emailController.text,
+        password: _passwordController.text,
+      )
+      ).user;
+
+      if (user != null) {
+        setState(() {
+          _success = true;
+          _userEmail = user.email;
+          locator<NavigationService>().navigateTo(routes.HomeRoute);
+        });
+      } else {
+        setState(() {
+          _success = false;
+        });
+      }
+    } catch (error) {
       setState(() {
         _success = false;
       });
+      print(error);
     }
   }
+
   @override
   void dispose() {
     _emailController.dispose();
@@ -135,7 +128,7 @@ class _RegisterState extends State<Register> {
     super.dispose();
   }
 
-  void signInPage() {
-    locator<NavigationService>().navigateTo(routes.SignInRoute);
+  void registerPage() {
+    locator<NavigationService>().navigateTo(routes.RegisterRoute);
   }
 }

@@ -4,8 +4,8 @@ import 'package:ratingApp/route_paths.dart' as routes;
 import 'package:ratingApp/ui/pages/add_item.dart';
 import 'package:ratingApp/ui/pages/home.dart';
 import 'package:ratingApp/ui/pages/rating_page.dart';
-import 'package:ratingApp/ui/pages/register.dart';
-import 'package:ratingApp/ui/pages/signin.dart';
+import 'package:ratingApp/ui/pages/auth/register.dart';
+import 'package:ratingApp/ui/pages/auth/signin.dart';
 
 Route<dynamic> generateRouting(RouteSettings settings){
   switch(settings.name){
