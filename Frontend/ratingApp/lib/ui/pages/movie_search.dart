@@ -2,14 +2,12 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:ratingApp/blocs/entry_bloc.dart';
-import 'package:ratingApp/blocs/movie_bloc.dart';
 import 'package:ratingApp/locator.dart';
 import 'package:ratingApp/models/entry_model.dart';
-import 'package:ratingApp/models/movie_model.dart';
 import 'package:ratingApp/navigation_service.dart';
 import 'package:ratingApp/route_paths.dart' as routes;
 
-class MovieSearch extends SearchDelegate<Result>{
+class MovieSearch extends SearchDelegate<Entry>{
 
   @override
   ThemeData appBarTheme(BuildContext context) {
@@ -59,6 +57,7 @@ class MovieSearch extends SearchDelegate<Result>{
           return Container(
             color: Theme.of(context).canvasColor,
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Center(
                   child: CircularProgressIndicator(),
@@ -84,7 +83,7 @@ class MovieSearch extends SearchDelegate<Result>{
                 Center(
                   child: FlatButton(
                     child: Text(
-                        "+ Add Entry",
+                        "+ Add Beer",
                       style: TextStyle(
                         fontSize: 20.0,
                       ),
@@ -131,6 +130,7 @@ class MovieSearch extends SearchDelegate<Result>{
       },
       child: Container(
         padding: EdgeInsets.fromLTRB(0, 8, 0, 8),
+          height: 140,
           child: Center(
             child: Row(
               children: <Widget>[
@@ -140,9 +140,10 @@ class MovieSearch extends SearchDelegate<Result>{
                   fit: BoxFit.contain,
                 ),
                 Text(
-                  result.name,
+                  ' - ${result.name}',
                   style: TextStyle(
                     fontSize: 20,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ],
