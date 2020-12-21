@@ -167,17 +167,19 @@ class _AddItemState extends State<AddItem> {
 
     final cam = (await availableCameras()).first;
 
-    /*File image = await ImagePicker.pickImage(
+    File image = await ImagePicker.pickImage(
         source: ImageSource.camera, imageQuality: 50
-    );*/
-
-    final imgPath = await Navigator.push(context, MaterialPageRoute(builder: (context) => CameraScreen(cam: cam)));
+    );
+    setState(() {
+      _image = image;
+    });
+    /*final imgPath = await Navigator.push(context, MaterialPageRoute(builder: (context) => CameraScreen(cam: cam)));
 
     if(imgPath != ""){
       setState(() {
         _image = File(imgPath);
       });
-    }
+    }*/
 
     await Navigator.push(context, MaterialPageRoute(builder: (c) => ChooseName(img: _image)));
 
@@ -193,13 +195,24 @@ class _AddItemState extends State<AddItem> {
   }
 
   _imgFromGallery() async {
-    File image = await  ImagePicker.pickImage(
+    File image = await ImagePicker.pickImage(
         source: ImageSource.gallery, imageQuality: 50
     );
 
     setState(() {
       _image = image;
     });
+    await Navigator.push(context, MaterialPageRoute(builder: (c) => ChooseName(img: _image)));
+
+    List<String> words = mlTextBloc.getChosenWords();
+    String chosenWords = "";
+    for(var word in words){
+      chosenWords += word+" ";
+    }
+
+    _nameController.text = chosenWords;
+
+    print("MlText: ChosenWords $chosenWords");
   }
   // Gives the user the option to pick between inserting an image from camera or gallery
   void _showPicker(context) {
